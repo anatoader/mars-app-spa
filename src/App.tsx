@@ -7,9 +7,12 @@ import NASA_logo from './media/NASA_logo.png';
 import ComponentTemplate from "./components/ComponentTemplate";
 import TreeCounter from "./components/TreeCounter";
 import PageNotFound from "./components/PageNotFound";
+import FormComponent from "./components/FormComponent";
 import {ComponentProps} from "./components/ComponentTemplate";
 
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+
+export const API_port = 8000;
 
 export default function App() {
     return (
@@ -18,23 +21,10 @@ export default function App() {
                 <Routes>
                     <Route path="/" element={<InfoNASA/>}/>
                     <Route path="/treecounter" element={<TreeCounter/>}/>
+                    <Route path="/rovers" element={<FormComponent/>}/>
                     <Route path="*" element={<PageNotFound/>}/>
                 </Routes>
             </Router>
-        </div>
-    );
-}
-
-function ReactApp() {
-    return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo"/>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">Learn React</a>
-            </header>
         </div>
     );
 }
@@ -62,3 +52,18 @@ function InfoNASA() {
         </div>
     );
 }
+
+
+// function ReactApp() {
+//     return (
+//         <div className="App">
+//             <header className="App-header">
+//                 <img src={logo} className="App-logo" alt="logo"/>
+//                 <p>
+//                     Edit <code>src/App.tsx</code> and save to reload.
+//                 </p>
+//                 <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">Learn React</a>
+//             </header>
+//         </div>
+//     );
+// }

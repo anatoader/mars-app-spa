@@ -13,7 +13,7 @@ export default function ComponentTemplate(params: ComponentProps) {
     return (
         <div className="App">
             <header className="InfoNASA-header">
-                <img src={params.logo_img} className="InfoNASA-logo" alt="image"/>
+                <img src={params.logo_img} className="InfoNASA-logo" alt="Logo"/>
                 <p id="paragraph">
                     {params.paragraph1}
                 </p>
