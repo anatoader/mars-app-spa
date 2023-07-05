@@ -1,59 +1,30 @@
-import React, {useCallback, useMemo, useState} from "react";
-import {RoversList} from "../interfaces/RoversList";
+import React, {useCallback, useMemo} from "react";
 import {Rover} from "../interfaces/Rover";
 import Select, {SingleValue} from "react-select";
-import {Option} from "../interfaces/Option";
-import axios, {AxiosError} from 'axios';
+import {OptionRover} from "../interfaces/OptionRover";
+import {PropSelectRover} from "../interfaces/PropSelectRover";
 
-import {API_port} from "../App";
-import {PhotoParser} from "./PhotoParser";
-
-export default function SelectRover(roversList: RoversList) {
-    const [isSelected, setIsSelected] = useState(false);
-    const [photos, setPhotos] = useState<string[]>([]);
-
-    const options: Option[] = useMemo(() => {
-        return roversList.rovers.map((rover: Rover) => {
+export default function SelectRover({list, contextProps}: PropSelectRover) {
+    const roverOptions: OptionRover[] = useMemo(() => {
+        return list.rovers.map((rover: Rover) => {
             return {value: rover, label: rover.name}
         });
-    }, [roversList]);
+    }, [list]);
 
-    const fetchRoverPhotos = useCallback(async (rover: Rover) => {
-        console.log(rover);
-        const response = await axios.get(`http://localhost:${API_port}/rovers/${rover.name}/photos/fhaz`)
-            .catch((error: AxiosError) => {
-                console.log(error.code);
-            });
-        if (response) {
-            setPhotos(response.data);
-        }
-    }, [setPhotos]);
-
-    const handleChange = useCallback((option: SingleValue<Option>) => {
+    const handleChange = useCallback((option: SingleValue<OptionRover>) => {
         if (option) {
-            setIsSelected(true);
-            fetchRoverPhotos(option?.value).catch((error: AxiosError) => {
-                console.log(error.code)
-            });
+            contextProps.dispatch(option.value);
         }
-    }, [fetchRoverPhotos]);
-
-
-    const showPhotos = useCallback((photos: string[]) => {
-        return photos.map((photo: string) => {
-            return <PhotoParser url={photo}/>;
-        });
     }, []);
 
     return (
         <div>
             <Select
-                id="select"
-                options={options}
+                className="select"
+                options={roverOptions}
                 placeholder={'Select a rover'}
                 onChange={handleChange}
             />
-            {isSelected && showPhotos(photos)}
         </div>
     );
 }

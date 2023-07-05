@@ -12,9 +12,9 @@ export default function ButtonClickCounter() {
     }, [clickCount]);
 
     return (
-        <div style={{display: "flex", justifyContent: "center"}} id="button_div">
-            <button onClick={handleClick} id="buton">Click me!</button>
-            <small>You've clicked this button {clickCount} times!</small>
+        <div style={{display: "flex", flexDirection:"column", justifyContent: "center"}} id="button_div">
+            <button className="buton" onClick={handleClick}>Click me!</button>
+            <small style={{display: "block", textAlign: "center"}}>You've clicked this button {clickCount} times!</small>
         </div>
     );
 }
